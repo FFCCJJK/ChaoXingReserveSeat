@@ -23,7 +23,7 @@ RESERVE_NEXT_DAY = False # 预约明天而不是今天的
 
 def login_and_reserve(users, usernames, passwords, action, success_list=None):
     logging.info(f"Global settings: \nSLEEPTIME: {SLEEPTIME}\nENDTIME: {ENDTIME}\nENABLE_SLIDER: {ENABLE_SLIDER}\nRESERVE_NEXT_DAY: {RESERVE_NEXT_DAY}")
-    logging.info(f"attempt time {attempt_times}, time now {current_time}, success list {success_list}")
+
     if len(usernames.split(",")) != len(users):
         raise Exception("user number should match the number of config")
     if success_list is None:
@@ -62,6 +62,7 @@ def main(users, action=False):
         success_list = login_and_reserve(users, usernames, passwords, action, success_list)
         # except Exception as e:
         #     print(f"An error occurred: {e}")
+        logging.info(f"attempt time {attempt_times}, time now {current_time}, success list {success_list}")
         print(f"attempt time {attempt_times}, time now {current_time}, success list {success_list}")
         current_time = get_current_time(action)
         if sum(success_list) == today_reservation_num:
