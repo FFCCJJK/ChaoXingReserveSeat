@@ -62,7 +62,6 @@ def main(users, action=False):
         success_list = login_and_reserve(users, usernames, passwords, action, success_list)
         # except Exception as e:
         #     print(f"An error occurred: {e}")
-        logging.info(f"attempt time {attempt_times}, time now {current_time}, success list {success_list}")
         print(f"attempt time {attempt_times}, time now {current_time}, success list {success_list}")
         current_time = get_current_time(action)
         if sum(success_list) == today_reservation_num:
