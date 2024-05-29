@@ -12,7 +12,7 @@ get_current_time = lambda action: time.strftime("%H:%M:%S", time.localtime(time.
 get_current_dayofweek = lambda action: time.strftime("%A", time.localtime(time.time() + 8*3600)) if action else time.strftime("%A", time.localtime(time.time()))
 
 SLEEPTIME = 0.2  # 每次抢座的间隔
-ENDTIME = "19:29:00"  # 根据学校的预约座位时间+1min即可
+ENDTIME = "19:11:00"  # 根据学校的预约座位时间+1min即可
 
 ENABLE_SLIDER = False  # 是否有滑块验证
 MAX_ATTEMPT = 5  # 最大尝试次数
@@ -47,9 +47,10 @@ def main(users, action=False):
     current_time = get_current_time(action)
     logging.info(f"start time {current_time}, action {'on' if action else 'off'}")
     attempt_times = 0
+    usernames = passwords = None
     if action:
         usernames, passwords = get_user_credentials(action)
-    success_list = None
+    success_list = [False] * len(users)
     current_dayofweek = get_current_dayofweek(action)
     today_reservation_num = sum(1 for d in users if current_dayofweek in d.get('daysofweek'))
     while current_time < ENDTIME:
